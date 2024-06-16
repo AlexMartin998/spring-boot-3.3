@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,6 +55,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler { // 
     // // Authorization
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorDetailsDto> handlerAccessDeniedException(AccessDeniedException exception, WebRequest webRequest) {
+        return createErrorResponse(
+                exception,
+                "User without required permissions",
+                HttpStatus.FORBIDDEN,
+                webRequest
+        );
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorDetailsDto> handlerAuthorizationDeniedException(AuthorizationDeniedException exception, WebRequest webRequest) {
         return createErrorResponse(
                 exception,
                 "User without required permissions",
