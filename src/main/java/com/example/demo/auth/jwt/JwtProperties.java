@@ -10,6 +10,6 @@ public class JwtProperties {
 
     // read from application.properties
     private String secret;
-    private Long expiration; // in milliseconds
+    private Long expiration; // in hours
 
 }
