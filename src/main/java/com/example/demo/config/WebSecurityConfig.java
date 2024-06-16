@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                                 .authenticationEntryPoint(jwtAuthEntryPoint))
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/api/v1/auth/**", "/api/v1/home/**").permitAll()
+                                .requestMatchers("/api/v1/auth/**", "/api/v1/home/**", "/api/v1/demo/free").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
